@@ -1,0 +1,125 @@
+/* =======================================================================
+   globals.css — 강사용 Link-in-Bio v2
+   출처: docs/Design_System/colors_and_type.css (Starbucks-inspired)
+   Next.js 세팅 후 app/globals.css 로 이동 예정
+   ======================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* =====================================================================
+   DESIGN TOKENS
+   ===================================================================== */
+:root {
+  /* 1rem = 10px 앵커 */
+  font-size: 62.5%;
+
+  /* -- 컬러: 4단계 그린 -- */
+  --sb-green:          #006241;   /* 브랜드 그린 — 이름, 강조 텍스트 */
+  --sb-green-accent:   #00754A;   /* 액션 그린 — CTA 버튼, 링크 */
+  --sb-green-house:    #1E3932;   /* 다크 그린 — 오버플로우 카드 배경, footer */
+  --sb-green-light:    #d4e9e2;   /* 민트 — 아이콘 배경, 입력 유효 상태 */
+
+  /* -- 골드 (신뢰/배지 강조용) -- */
+  --sb-gold:           #cba258;
+
+  /* -- 서피스 (배경) -- */
+  --sb-white:          #ffffff;
+  --sb-neutral-warm:   #f2f0eb;   /* 페이지 기본 배경 */
+  --sb-ceramic:        #edebe9;   /* 카드 hover 배경 */
+
+  /* -- 텍스트 -- */
+  --sb-text-black:     rgba(0, 0, 0, 0.87);   /* 기본 텍스트 */
+  --sb-text-soft:      rgba(0, 0, 0, 0.58);   /* 보조 텍스트, 아이콘 */
+  --sb-text-white:     rgba(255, 255, 255, 1); /* 다크 배경 위 텍스트 */
+
+  /* -- 선 & 구분선 -- */
+  --sb-hairline:       #e7e7e7;
+  --sb-input-border:   #d6dbde;
+
+  /* -- 폰트 -- */
+  --sb-font: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* -- 타입 스케일 (1rem = 10px 기준) -- */
+  --sb-text-xs:   1.3rem;   /* 13px — 캡션, 보조 설명 */
+  --sb-text-sm:   1.4rem;   /* 14px — 소형 레이블 */
+  --sb-text-base: 1.6rem;   /* 16px — 본문 기본 */
+  --sb-text-lg:   1.9rem;   /* 19px — 카드 제목 */
+  --sb-text-xl:   2.4rem;   /* 24px — 섹션 제목 */
+  --sb-text-2xl:  2.8rem;   /* 28px — 히어로 제목 */
+
+  /* -- 폰트 굵기 -- */
+  --sb-weight-regular:  400;
+  --sb-weight-medium:   500;
+  --sb-weight-semibold: 600;
+  --sb-weight-bold:     700;
+
+  /* -- 자간 -- */
+  --sb-tracking-normal: -0.01em;   /* 전체 기본 적용 */
+  --sb-tracking-tight:  -0.02em;   /* 제목 강조 */
+  --sb-tracking-loose:   0.08em;   /* 뱃지/레이블 uppercase */
+
+  /* -- 간격 (spacing) -- */
+  --sb-space-1: 0.4rem;    /* 4px */
+  --sb-space-2: 0.8rem;    /* 8px */
+  --sb-space-3: 1.2rem;    /* 12px */
+  --sb-space-4: 1.6rem;    /* 16px — 기본 리듬 단위 */
+  --sb-space-5: 2.0rem;    /* 20px */
+  --sb-space-6: 2.4rem;    /* 24px */
+  --sb-space-7: 3.2rem;    /* 32px */
+  --sb-space-8: 4.0rem;    /* 40px */
+
+  /* -- 모서리 반경 -- */
+  --sb-radius-input:  4px;
+  --sb-radius-card:   12px;
+  --sb-radius-pill:   50px;
+  --sb-radius-circle: 50%;
+
+  /* -- 그림자 -- */
+  --sb-shadow-card:
+    0 0 0.5px rgba(0, 0, 0, 0.14),
+    0 1px 1px rgba(0, 0, 0, 0.24);
+
+  --sb-shadow-frap:
+    0 0 6px rgba(0, 0, 0, 0.24),
+    0 8px 12px rgba(0, 0, 0, 0.14);
+
+  --sb-shadow-frap-active:
+    0 0 6px rgba(0, 0, 0, 0.24),
+    0 8px 12px rgba(0, 0, 0, 0.00);
+
+  /* -- 애니메이션 -- */
+  --sb-dur:  0.2s;
+  --sb-ease: ease;
+}
+
+/* =====================================================================
+   RESET & 기본 스타일
+   ===================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sb-font);
+  font-size: var(--sb-text-base);
+  line-height: 1.5;
+  letter-spacing: var(--sb-tracking-normal);
+  color: var(--sb-text-black);
+  background: var(--sb-neutral-warm);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  /* Floating CTA 높이 + iOS 홈 인디케이터 여백 */
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

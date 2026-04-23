@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Surface & Neutrals</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background: var(--sb-neutral-warm); }
+  .wrap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .sw { border-radius: 12px; overflow: hidden; background: var(--sb-white); box-shadow: var(--sb-shadow-card); }
+  .chip { height: 64px; border: 1px solid rgba(0,0,0,0.06); }
+  .meta { padding: 10px 12px 12px; }
+  .name { font-size: 12px; font-weight: 600; color: var(--sb-text-black); }
+  .hex  { font-size: 11px; color: var(--sb-text-black-soft); margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .role { font-size: 10px; color: var(--sb-text-black-soft); margin-top: 4px; line-height: 1.35; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="sw"><div class="chip" style="background:#ffffff"></div><div class="meta"><div class="name">White</div><div class="hex">#ffffff</div><div class="role">Card & modal surface</div></div></div>
+  <div class="sw"><div class="chip" style="background:#f9f9f9"></div><div class="meta"><div class="name">Neutral Cool</div><div class="hex">#f9f9f9</div><div class="role">Dropdown, utility</div></div></div>
+  <div class="sw"><div class="chip" style="background:#f2f0eb"></div><div class="meta"><div class="name">Neutral Warm</div><div class="hex">#f2f0eb</div><div class="role">Primary canvas</div></div></div>
+  <div class="sw"><div class="chip" style="background:#edebe9"></div><div class="meta"><div class="name">Ceramic</div><div class="hex">#edebe9</div><div class="role">Zone separator</div></div></div>
+  <div class="sw"><div class="chip" style="background:#000000"></div><div class="meta"><div class="name">Black</div><div class="hex">#000000</div><div class="role">Join CTA strip only</div></div></div>
+</div>
+</body>
+</html>

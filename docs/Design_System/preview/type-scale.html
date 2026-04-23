@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Type Scale</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background: var(--sb-neutral-warm); font-family: var(--sb-font-primary); letter-spacing: var(--sb-tracking-normal); color: var(--sb-text-black); }
+  .row { display: grid; grid-template-columns: 80px 1fr 100px; align-items: baseline; gap: 16px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .row:last-child { border-bottom: none; }
+  .tag { font-size: 11px; color: var(--sb-text-black-soft); font-variant-numeric: tabular-nums; }
+  .spec { font-size: 11px; color: var(--sb-text-black-soft); text-align: right; font-variant-numeric: tabular-nums; }
+  .sample { line-height: 1.15; letter-spacing: -0.16px; }
+</style>
+</head>
+<body>
+  <div class="row"><div class="tag">text-10</div><div class="sample" style="font-size:56px; font-weight:600;">Dream Away</div><div class="spec">80px / 600</div></div>
+  <div class="row"><div class="tag">text-8</div><div class="sample" style="font-size:36px; font-weight:600;">Free coffee is just the beginning</div><div class="spec">45px / 600</div></div>
+  <div class="row"><div class="tag">H1</div><div class="sample" style="font-size:24px; font-weight:600; color:#006241;">Starbucks Rewards</div><div class="spec">24px / 600</div></div>
+  <div class="row"><div class="tag">H2</div><div class="sample" style="font-size:24px; font-weight:400;">Explore our menu</div><div class="spec">24px / 400</div></div>
+  <div class="row"><div class="tag">Body</div><div class="sample" style="font-size:16px; font-weight:400;">Earn Stars, unlock rewards, and order ahead from your favorite store.</div><div class="spec">16px / 400</div></div>
+  <div class="row"><div class="tag">Small</div><div class="sample" style="font-size:14px; font-weight:600;">Start an order</div><div class="spec">14px / 600</div></div>
+</body>
+</html>

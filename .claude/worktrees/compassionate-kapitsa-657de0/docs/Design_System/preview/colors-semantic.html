@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Semantic Colors</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px; background: var(--sb-neutral-warm); }
+  .wrap { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw { border-radius: 12px; overflow: hidden; background: var(--sb-white); box-shadow: var(--sb-shadow-card); }
+  .chip { height: 64px; border: 1px solid rgba(0,0,0,0.04); }
+  .meta { padding: 10px 12px 12px; }
+  .name { font-size: 12px; font-weight: 600; color: var(--sb-text-black); }
+  .hex  { font-size: 11px; color: var(--sb-text-black-soft); margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .role { font-size: 10px; color: var(--sb-text-black-soft); margin-top: 4px; line-height: 1.35; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="sw"><div class="chip" style="background:#c82014"></div><div class="meta"><div class="name">Red</div><div class="hex">#c82014</div><div class="role">Error, destructive</div></div></div>
+  <div class="sw"><div class="chip" style="background:#fbbc05"></div><div class="meta"><div class="name">Yellow</div><div class="hex">#fbbc05</div><div class="role">Warning</div></div></div>
+  <div class="sw"><div class="chip" style="background:hsl(160 32% 87% / 1)"></div><div class="meta"><div class="name">Valid Tint</div><div class="hex">green-light @ 33%</div><div class="role">Valid-field background</div></div></div>
+  <div class="sw"><div class="chip" style="background:hsl(4 82% 43% / 0.15)"></div><div class="meta"><div class="name">Invalid Tint</div><div class="hex">red @ 5%</div><div class="role">Invalid-field bg</div></div></div>
+</div>
+</body>
+</html>
