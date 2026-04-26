@@ -73,9 +73,9 @@
 - [x] Mobile: 상단 3탭 (`설정 | 미리보기 | 대시보드`)
 
 ### 4-2. Dashboard
-- [ ] 총 클릭 수 표시
-- [ ] 기간 필터 (최근 7일 / 30일)
-- [ ] 링크별 클릭 수 테이블
+- [x] 총 클릭 수 표시 → [설명](docs/explanations/21-admin-dashboard.md)
+- [x] 기간 필터 (최근 7일 / 30일)
+- [x] 링크별 클릭 수 테이블
 
 ### 4-3. Link Manager
 - [x] 링크 목록 조회 (mock 데이터, Supabase 연동 후 교체) → [설명](docs/explanations/08_4-3_link-manager.md)

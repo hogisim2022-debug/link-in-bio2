@@ -4,6 +4,7 @@ import { useState } from "react";
 import AdminShell from "./AdminShell";
 import LinkEditor from "./LinkEditor";
 import PreviewPane from "./PreviewPane";
+import DashboardStats from "./DashboardStats";
 import { Profile, Link, ClientLogo } from "@/lib/types";
 
 interface AdminClientProps {
@@ -32,14 +33,7 @@ export default function AdminClient({
   return (
     <AdminShell
       /* ── 대시보드 ── */
-      dashboardPanel={
-        <div>
-          <p className="admin-section__title">대시보드</p>
-          <p style={{ fontSize: "var(--sb-text-sm)", color: "var(--sb-text-soft)" }}>
-            Supabase 연동 후 클릭 통계가 표시됩니다.
-          </p>
-        </div>
-      }
+      dashboardPanel={<DashboardStats />}
 
       /* ── 설정 패널 ── */
       settingsPanel={
