@@ -1,16 +1,19 @@
 # Task 진행 규칙
 - task(`task.md`)는 최소 단위로 하나씩 진행한다.
-- task 시작 전:
-    - `docs/explanations/`의 마지막 문서 번호 + 1을 새 번호로 사용한다.
-    - `git checkout -b task/<새번호>-<간단한 설명>`
-    - 예: 마지막 문서가 `18_2_logout.md`이면 → `git checkout -b task/19-<설명>`
-- task 완료 후:
-    - 해당 브랜치에 커밋
-    - `git checkout main`
-    - `git merge task/<번호>-<설명>`
-    - 반드시 해당 설명 문서(docs/explanations/)를 작성한다.
-        - 설명 문서 파일명: `<번호>-<간단한 설명>.md`
-        - 번호는 브랜치 번호와 동일하게 오름차순으로 명명한다.
+- task 시작 전: 
+    - 해당 task를 대표할 수 있는 간단한 설명과 함께 `git checkout -b task/<번호>-<간단한 설명>`
+- task 완료 후 체크리스트 (순서대로):
+    1. 설명 문서 작성 (`docs/explanations/<번호>-<설명>.md`)
+        - 번호는 기존 문서 중 가장 큰 번호 + 1
+        - 최상단: task 메타 정보 + 브랜치명
+        - 상단 퀴즈 문제 (정답 없이)
+        - 무엇을 했나? + 다이어그램
+        - 핵심 개념 + 프롬프트 업그레이드 예시
+        - 이렇게 확인하세요
+        - 퀴즈 정답
+    2. quiz 폴더 복습 파일 작성 (`docs/explanations/quiz/<번호>-<설명>.md`)
+    3. 해당 브랜치에 커밋 (커밋 메시지는 한글로)
+    4. `git checkout main` → `git merge task/<번호>-<설명>`
 
 
 # 설명 문서 규칙
@@ -70,7 +73,4 @@
       - ❌ 과거: `"여기 폰트 좀 키워줘"`
       - ✅ 현재: `"h1 font-size를 4rem으로 바꿔"`
     - 개념과 무관한 일반 작업 지시 섹션에는 넣지 않는다.
-    - ✅ 예시는 비개발자가 실제로 입력할 수 있는 말로만 작성한다. 코드 구현 세부 사항(함수명, state 패턴, 라이브러리 API 구조 등)은 넣지 않는다.
-        - ❌ `"Promise.all()로 세 쿼리 병렬 실행해"`, `"draft state만 바꾸고 links state에 반영해줘"`
-        - ✅ `"logos 버킷의 파일 크기 제한을 2MB로 설정해줘"`, `"h1 font-size를 4rem으로 바꿔"`
 
