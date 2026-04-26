@@ -1,7 +1,8 @@
 # Public 페이지 Supabase 데이터 연동
 
 **완료한 task:** `3. Public 페이지 > 3-1 SEO 동적 설정 / 3-2 Storage URL / 3-3 client_logos 연동`  
-**수정 파일:** `app/page.tsx`, `next.config.ts`
+**수정 파일:** `app/page.tsx`, `next.config.ts`  
+**브랜치:** `task/19-public-supabase`
 
 ---
 
@@ -49,7 +50,7 @@ generateMetadata()   →  요청마다(ISR 주기) DB에서 읽어옴
 ```
 
 - ❌ 과거: `"SEO 정보 바꿔줘"`
-- ✅ 현재: `"export const metadata를 generateMetadata 비동기 함수로 바꾸고 Supabase에서 seo_title, seo_description 읽어와"`
+- ✅ 현재: `"페이지 제목이랑 설명이 DB에서 바뀌면 자동으로 반영되게 해줘"`
 
 ---
 
@@ -58,19 +59,16 @@ generateMetadata()   →  요청마다(ISR 주기) DB에서 읽어옴
 페이지에 필요한 데이터가 여러 테이블에 있을 때, 하나씩 순서대로 가져오면 시간이 배로 걸린다.
 
 ```
-순차 처리 (느림)          병렬 처리 (빠름)
-profile 조회 300ms        ┌── profile 조회 300ms
-     ↓                    │   links 조회  200ms  → 모두 완료: 300ms
-links 조회  200ms         └── logos 조회  150ms
+순차 처리 (느림)               병렬 처리 (빠름)
+profile 가져오기 300ms         ┌── profile 가져오기 300ms
+     ↓                         │   links 가져오기  200ms  → 모두 완료: 300ms
+links 가져오기  200ms          └── logos 가져오기  150ms
      ↓
-logos 조회  150ms
-총 650ms                  총 300ms (가장 오래 걸리는 것 기준)
+logos 가져오기  150ms
+총 650ms                       총 300ms (가장 오래 걸리는 것 기준)
 ```
 
-`Promise.all()`을 쓰면 세 쿼리가 동시에 실행된다.
-
-- ❌ 과거: `"profile, links, logos 순서대로 가져와"`
-- ✅ 현재: `"Promise.all()로 profile, links, logos 세 쿼리 병렬로 실행해"`
+세 가지 데이터를 동시에 요청하면 가장 오래 걸리는 것 하나가 끝나는 시간에 전부 완료된다.
 
 ---
 
