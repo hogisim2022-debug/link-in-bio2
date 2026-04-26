@@ -56,7 +56,7 @@
 ### 3-4. Link List
 - [x] `LinkItem`(기본형), `OverflowCardItem`(돌출 카드) ← 완성
 - [x] `is_visible: false` 필터링 ← mock 데이터 단계에서 완성
-- [ ] 링크 클릭 시 `increment_click_count` RPC 호출 (Supabase 연동 후)
+- [x] 링크 클릭 시 `increment_click_count` RPC 호출 (Supabase 연동 후) → [설명](docs/explanations/20-link-click-tracking.md)
 
 ### 3-5. Floating CTA
 - [x] `position: fixed`, `safe-area-inset-bottom`, `primary_cta_link_id` 연결 ← 완성
