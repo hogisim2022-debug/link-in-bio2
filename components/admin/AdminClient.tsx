@@ -33,6 +33,7 @@ export default function AdminClient({
   const [logos, setLogos] = useState<ClientLogo[]>(initialLogos);
   const [uploading, setUploading] = useState(false);
   const [ogUploading, setOgUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const ogFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -68,6 +69,36 @@ export default function AdminClient({
 
     setProfile({ ...profile, image_url: publicUrl });
     setUploading(false);
+  }
+
+  async function handleSave() {
+    setSaving(true);
+    const supabase = createClient();
+
+    await supabase
+      .from("profile")
+      .update({
+        name: profile.name,
+        bio: profile.bio,
+        experience: profile.experience,
+        primary_cta_link_id: ctaLinkId || null,
+        seo_title: seo.title || null,
+        seo_description: seo.description || null,
+      })
+      .eq("id", profile.id);
+
+    await Promise.all(
+      links
+        .filter((l) => !l.id.startsWith("link-"))
+        .map((l) =>
+          supabase
+            .from("links")
+            .update({ title: l.title, url: l.url, type: l.type, is_visible: l.is_visible, order: l.order })
+            .eq("id", l.id)
+        )
+    );
+
+    setSaving(false);
   }
 
   async function handleOgImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -282,6 +313,23 @@ export default function AdminClient({
               </button>
               <p className="admin-field__hint">권장 크기: 1200 × 630px</p>
             </div>
+          </div>
+
+          <div style={{ padding: "0 2rem 2rem" }}>
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              style={{
+                width: "100%", padding: "1rem",
+                background: saving ? "var(--sb-hairline)" : "var(--sb-green-accent)",
+                color: saving ? "var(--sb-text-soft)" : "#fff",
+                border: "none", borderRadius: 8,
+                fontSize: "var(--sb-text-sm)", fontFamily: "inherit",
+                fontWeight: 700, cursor: saving ? "not-allowed" : "pointer",
+              }}
+            >
+              {saving ? "저장 중…" : "저장"}
+            </button>
           </div>
         </div>
       }
