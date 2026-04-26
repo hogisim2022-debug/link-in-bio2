@@ -120,7 +120,7 @@
 
 - [x] Next.js ISR 설정 (Public 페이지 `revalidate = 60`) → [설명](docs/explanations/13_6_isr.md)
 - [x] `next/image` 최적화 (Supabase Storage `remotePatterns` placeholder 추가)
-- [ ] Vercel 배포 설정 (환경변수 등록)
+- [x] Vercel 배포 설정 (환경변수 등록) → [설명](docs/explanations/25-vercel-deploy.md)
 - [ ] Lighthouse 모바일 점수 확인 (Performance, CLS 체크)
 
 ---
