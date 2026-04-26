@@ -17,7 +17,12 @@
       "Bash(mv \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/image-2.png\" \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/images/image-2.png\")",
       "Bash(git checkout *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "mcp__supabase__list_tables",
+      "mcp__supabase__apply_migration",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/admin)"
     ]
   }
 }

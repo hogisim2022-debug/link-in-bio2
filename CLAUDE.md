@@ -12,8 +12,6 @@
         - 이렇게 확인하세요
         - 퀴즈 정답
     2. quiz 폴더 복습 파일 작성 (`docs/explanations/quiz/<번호>-<설명>.md`)
-    3. 해당 브랜치에 커밋 (커밋 메시지는 한글로)
-    4. `git checkout main` → `git merge task/<번호>-<설명>`
 
 
 # 설명 문서 규칙
