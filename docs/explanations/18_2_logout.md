@@ -1,7 +1,8 @@
 # 로그아웃 버튼 (Supabase Auth 연동)
 
 **완료한 task:** `2. 인증 > 로그아웃 버튼`  
-**수정 파일:** `components/admin/AdminShell.tsx`
+**수정 파일:** `components/admin/AdminShell.tsx`  
+**브랜치:** `task/18-logout`
 
 ---
 
@@ -41,7 +42,7 @@ Admin 헤더의 로그아웃 버튼에 실제 동작을 연결했다.
 이후 `/admin`에 다시 접근하면 세션이 없으므로 middleware가 다시 `/login`으로 보낸다.
 
 - ❌ 과거: `"로그아웃 버튼 만들어줘"`
-- ✅ 현재: `"로그아웃 버튼 클릭 시 세션 확인하고 /login으로 이동해줘"`
+- ✅ 현재: `"로그아웃 버튼 누르면 세션 끊고 로그인 페이지로 이동해줘"`
 
 ---
 
