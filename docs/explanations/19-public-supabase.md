@@ -28,9 +28,6 @@ app/page.tsx
               ↓ 실제 DB 데이터 (profile / links / client_logos)
 ```
 
-변경된 내용:
-- `PublicPage()` → `async function` (DB에서 profile, links, logos 병렬 조회)
-- `next.config.ts` → Supabase Storage 도메인 추가 (`next/image` 사용 허용)
 
 ---
 

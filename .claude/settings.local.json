@@ -15,7 +15,9 @@
       "Bash(mv \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/image.png\" \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/images/image.png\")",
       "Bash(mv \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/image-1.png\" \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/images/image-1.png\")",
       "Bash(mv \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/image-2.png\" \"C:/Users/beluga/Desktop/KSA/link-in-bio2/docs/explanations/images/image-2.png\")",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }
