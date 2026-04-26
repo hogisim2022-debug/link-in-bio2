@@ -1,15 +1,29 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import AdminClient from "@/components/admin/AdminClient";
-import { mockProfile, mockLinks, mockLogos } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "관리자 | 김강사" };
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const [{ data: profile }, { data: links }, { data: logos }] = await Promise.all([
+    supabase.from("profile").select("*").single(),
+    supabase.from("links").select("*").order("order"),
+    supabase.from("client_logos").select("*").order("order"),
+  ]);
+
+  if (!profile) redirect("/login");
+
   return (
     <AdminClient
-      initialProfile={mockProfile}
-      initialLinks={mockLinks}
-      initialLogos={mockLogos}
+      initialProfile={profile}
+      initialLinks={links ?? []}
+      initialLogos={logos ?? []}
     />
   );
 }

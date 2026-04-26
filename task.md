@@ -88,7 +88,7 @@
 
 ### 4-4. Profile & Trust Settings
 - [x] 이름, 한 줄 소개, 경력 텍스트 수정 폼 → (Live Preview task에서 완료)
-- [ ] 프로필 이미지 업로드 → Supabase Storage
+- [x] 프로필 이미지 업로드 → Supabase Storage → [설명](docs/explanations/22-profile-image-upload.md)
 - [ ] 기업 로고 업로드 / 삭제 / 순서 관리 → Supabase Storage
 - [x] Primary CTA 연결 링크 드롭다운 → [설명](docs/explanations/11_4-4_primary-cta.md)
 
