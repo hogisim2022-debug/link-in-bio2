@@ -43,15 +43,15 @@
 
 ### 3-1. SEO / OG
 - [x] `<head>` 메타 태그, Open Graph 태그 ← mock 데이터로 완성
-- [ ] `generateMetadata`를 Supabase 데이터 기반 동적 설정으로 교체
+- [x] `generateMetadata`를 Supabase 데이터 기반 동적 설정으로 교체 → [설명](docs/explanations/19-public-supabase.md)
 
 ### 3-2. Hero 영역
 - [x] 프로필 이미지(`next/image`), 이름, 한 줄 소개 ← 완성
-- [ ] Supabase Storage URL로 교체
+- [x] Supabase Storage URL로 교체 → [설명](docs/explanations/19-public-supabase.md)
 
 ### 3-3. Trust 영역
 - [x] 경력 텍스트, 기업 로고 슬라이더 ← 완성
-- [ ] Supabase `client_logos` 데이터로 교체
+- [x] Supabase `client_logos` 데이터로 교체 → [설명](docs/explanations/19-public-supabase.md)
 
 ### 3-4. Link List
 - [x] `LinkItem`(기본형), `OverflowCardItem`(돌출 카드) ← 완성
