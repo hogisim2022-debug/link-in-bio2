@@ -6,6 +6,7 @@ import AdminShell from "./AdminShell";
 import LinkEditor from "./LinkEditor";
 import PreviewPane from "./PreviewPane";
 import DashboardStats from "./DashboardStats";
+import ClientLogoManager from "./ClientLogoManager";
 import { createClient } from "@/lib/supabase/client";
 import { Profile, Link, ClientLogo } from "@/lib/types";
 
@@ -29,6 +30,7 @@ export default function AdminClient({
     title:       initialProfile.seo_title       ?? "",
     description: initialProfile.seo_description ?? "",
   });
+  const [logos, setLogos] = useState<ClientLogo[]>(initialLogos);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -159,6 +161,14 @@ export default function AdminClient({
             </div>
           </div>
           <div className="admin-section">
+            <p className="admin-section__title">기업 로고</p>
+            <ClientLogoManager
+              userId={profile.id}
+              logos={logos}
+              onChange={setLogos}
+            />
+          </div>
+          <div className="admin-section">
             <p className="admin-section__title">링크 관리</p>
             <LinkEditor links={links} onChange={setLinks} />
           </div>
@@ -215,7 +225,7 @@ export default function AdminClient({
         <PreviewPane
           profile={profile}
           links={links}
-          logos={initialLogos}
+          logos={logos}
           ctaUrl={ctaUrl}
         />
       }

@@ -23,8 +23,21 @@ export default function TrustBar({ experience, logos }: TrustBarProps) {
       <div className="trust__ticker-wrap">
         <div className="trust__ticker-track">
           {doubled.map((logo, i) => (
-            <div key={i} className="trust__logo-chip">
-              {logo.name}
+            <div
+              key={i}
+              className="trust__logo-chip"
+              style={logo.image_url ? { background: "transparent", boxShadow: "none" } : undefined}
+            >
+              {logo.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={logo.image_url}
+                  alt={logo.name}
+                  style={{ height: 24, width: "auto", display: "block" }}
+                />
+              ) : (
+                logo.name
+              )}
             </div>
           ))}
         </div>
