@@ -1,8 +1,19 @@
+"use client";
+
 import { MessageCircle, Mail, FileText, PenLine, Link2, ChevronRight } from "lucide-react";
 import { Link } from "@/lib/types";
+import { createClient } from "@/lib/supabase/client";
 
 interface LinkItemProps {
   link: Link;
+}
+
+function trackClick(linkId: string) {
+  const supabase = createClient();
+  supabase.rpc("increment_click_count", { link_id: linkId })
+    .then(({ error }) => {
+      if (error) console.error("[click tracking]", error);
+    });
 }
 
 type IconEntry = { icon: React.ReactNode; cls: string };
@@ -20,11 +31,16 @@ function getIcon(title: string): IconEntry {
 }
 
 // 기본형 링크
-// TODO: Supabase 연동 후 클릭 시 increment_click_count RPC 호출 추가
 export function LinkItem({ link }: LinkItemProps) {
   const { icon, cls } = getIcon(link.title);
   return (
-    <a className="link-item" href={link.url} target="_blank" rel="noopener noreferrer">
+    <a
+      className="link-item"
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => trackClick(link.id)}
+    >
       <div className={`link-item__icon ${cls}`}>{icon}</div>
       <div className="link-item__text">
         <div className="link-item__label">{link.title}</div>
@@ -38,7 +54,13 @@ export function LinkItem({ link }: LinkItemProps) {
 export function OverflowCardItem({ link }: LinkItemProps) {
   return (
     <div className="overflow-card-wrap">
-      <a className="overflow-card" href={link.url} target="_blank" rel="noopener noreferrer">
+      <a
+        className="overflow-card"
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => trackClick(link.id)}
+      >
         <div className="overflow-card__img">🤖</div>
         <div className="overflow-card__body">
           <p className="overflow-card__badge">★ 대표 강의</p>
