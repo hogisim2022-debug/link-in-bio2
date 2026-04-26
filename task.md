@@ -95,7 +95,7 @@
 ### 4-5. SEO Settings
 - [x] SEO 페이지 제목 입력 → [설명](docs/explanations/12_4-5_seo-form.md)
 - [x] Meta Description 입력 (글자 수 힌트 포함)
-- [ ] OG 이미지 업로드 → Supabase Storage
+- [x] OG 이미지 업로드 → Supabase Storage → [설명](docs/explanations/24-og-image-upload.md)
 
 ### 4-6. Live Preview
 - [x] 우측(Desktop) / 탭(Mobile)에서 Public 페이지 실시간 렌더링

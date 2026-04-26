@@ -32,7 +32,9 @@ export default function AdminClient({
   });
   const [logos, setLogos] = useState<ClientLogo[]>(initialLogos);
   const [uploading, setUploading] = useState(false);
+  const [ogUploading, setOgUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const ogFileInputRef = useRef<HTMLInputElement>(null);
 
   const ctaUrl = links.find((l) => l.id === ctaLinkId)?.url ?? "";
 
@@ -66,6 +68,38 @@ export default function AdminClient({
 
     setProfile({ ...profile, image_url: publicUrl });
     setUploading(false);
+  }
+
+  async function handleOgImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setOgUploading(true);
+    const supabase = createClient();
+    const ext = file.name.split(".").pop() ?? "jpg";
+    const path = `${profile.id}.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("og-images")
+      .upload(path, file, { upsert: true });
+
+    if (uploadError) {
+      console.error("[og upload]", uploadError);
+      setOgUploading(false);
+      return;
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from("og-images")
+      .getPublicUrl(path);
+
+    await supabase
+      .from("profile")
+      .update({ og_image_url: publicUrl })
+      .eq("id", profile.id);
+
+    setProfile({ ...profile, og_image_url: publicUrl });
+    setOgUploading(false);
   }
 
   return (
@@ -213,9 +247,41 @@ export default function AdminClient({
               />
               <p className="admin-field__hint">{seo.description.length} / 160자 권장</p>
             </div>
-            <p className="admin-field__note">
-              OG 이미지 업로드는 Supabase Storage 연동 후 활성화됩니다.
-            </p>
+            <div className="admin-field">
+              <label className="admin-field__label">OG 이미지 (SNS 공유 미리보기)</label>
+              {profile.og_image_url && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={profile.og_image_url}
+                  alt="OG 이미지"
+                  style={{
+                    width: "100%", aspectRatio: "1200/630", objectFit: "cover",
+                    borderRadius: 6, marginBottom: "0.8rem",
+                  }}
+                />
+              )}
+              <input
+                ref={ogFileInputRef}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleOgImageUpload}
+              />
+              <button
+                style={{
+                  fontSize: "var(--sb-text-sm)", padding: "0.6rem 1.4rem",
+                  borderRadius: "50px", border: "1.5px solid var(--sb-hairline)",
+                  background: "transparent", color: "var(--sb-text-primary)",
+                  fontFamily: "inherit", fontWeight: 600, cursor: "pointer",
+                  opacity: ogUploading ? 0.5 : 1,
+                }}
+                onClick={() => ogFileInputRef.current?.click()}
+                disabled={ogUploading}
+              >
+                {ogUploading ? "업로드 중…" : profile.og_image_url ? "이미지 변경" : "이미지 업로드"}
+              </button>
+              <p className="admin-field__hint">권장 크기: 1200 × 630px</p>
+            </div>
           </div>
         </div>
       }
