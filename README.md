@@ -25,10 +25,10 @@ for branch in $(git branch -r | grep 'task/' | sed 's/origin\///'); do git check
 git checkout main
 ```
 
-**Windows (PowerShell)**
-```powershell
+**Windows (CMD)**
+```cmd
 git fetch --all
-git branch -r | Select-String 'task/' | ForEach-Object { $b = $_.ToString().Trim() -replace 'origin/', ''; git checkout --track origin/$b }
+for /f "tokens=*" %b in ('git branch -r ^| findstr "task/"') do git checkout --track %b
 git checkout main
 ```
 
