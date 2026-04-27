@@ -16,11 +16,23 @@ cd link-in-bio2
 
 ### 2. 전체 브랜치 받기
 
-클론 직후에는 원격 브랜치가 로컬에 없습니다. 아래 명령어로 모두 가져옵니다.
+클론 직후에는 원격 브랜치가 로컬에 없습니다. 아래 명령어로 모두 로컬에 생성합니다.
 
+**Mac / Linux (bash/zsh)**
 ```bash
 git fetch --all
+for branch in $(git branch -r | grep 'task/' | sed 's/origin\///'); do git checkout --track origin/$branch; done
+git checkout main
 ```
+
+**Windows (PowerShell)**
+```powershell
+git fetch --all
+git branch -r | Select-String 'task/' | ForEach-Object { $b = $_.ToString().Trim() -replace 'origin/', ''; git checkout --track origin/$b }
+git checkout main
+```
+
+실행 후 `git branch` 로 브랜치 목록이 모두 보이는지 확인하세요.
 
 ### 3. 의존성 설치
 
