@@ -8,8 +8,7 @@
 ## 이 문서를 읽고 나면 풀 수 있어요
 
 1. Server Component는 버튼 클릭 같은 인터랙션을 직접 처리할 수 있다.
-2. `children` prop은 여러 개의 독립적인 UI 슬롯을 넘길 때 적합하다.
-3. `@media (max-width: 768px)`는 화면 너비가 768px 이하일 때 적용된다.
+2. `@media (max-width: 768px)`는 화면 너비가 768px 이하일 때 적용된다.
 
 ---
 
@@ -178,8 +177,5 @@ Public 페이지 컴포넌트를 재사용하기 때문에, 실제 공개 페이
 1. Server Component는 버튼 클릭 같은 인터랙션을 직접 처리할 수 있다. → **X**  
    ↳ 인터랙션은 Client Component(`"use client"`)가 담당한다. Server Component는 데이터 준비와 기본 틀을 맡는다.
 
-2. `children` prop은 여러 개의 독립적인 UI 슬롯을 넘길 때 적합하다. → **X**  
-   ↳ `children`은 하나의 슬롯이다. 여러 슬롯은 `settingsPanel`, `previewPanel` 같은 named props를 쓴다.
-
-3. `@media (max-width: 768px)`는 화면 너비가 768px 이하일 때 적용된다. → **O**  
+2. `@media (max-width: 768px)`는 화면 너비가 768px 이하일 때 적용된다. → **O**  
    ↳ 모바일 기기 대응에 주로 사용하는 breakpoint다.

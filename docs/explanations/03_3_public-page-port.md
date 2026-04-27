@@ -7,9 +7,8 @@
 
 ## 이 문서를 읽고 나면 풀 수 있어요
 
-1. Next.js에서 `export const metadata` 객체를 쓰면 HTML `<head>`의 메타태그가 자동 생성된다.
-2. mock 데이터를 쓰는 이유는 Supabase 없이도 UI 개발을 진행하기 위해서다.
-3. Supabase 연동 후에는 컴포넌트 코드도 함께 바꿔야 한다.
+1. mock 데이터를 쓰는 이유는 Supabase 없이도 UI 개발을 진행하기 위해서다.
+2. Supabase 연동 후에는 컴포넌트 코드도 함께 바꿔야 한다.
 
 ---
 
@@ -108,11 +107,8 @@ Next.js에서 `metadata` 객체를 export하면 자동으로 `<head>` 안에 메
 
 ## 퀴즈 정답
 
-1. Next.js에서 `export const metadata` 객체를 쓰면 HTML `<head>`의 메타태그가 자동 생성된다. → **O**  
-   ↳ TypeScript 코드로 `<title>`, `<meta>` 태그를 관리한다.
-
-2. mock 데이터를 쓰는 이유는 Supabase 없이도 UI 개발을 진행하기 위해서다. → **O**  
+1. mock 데이터를 쓰는 이유는 Supabase 없이도 UI 개발을 진행하기 위해서다. → **O**  
    ↳ DB 데이터와 동일한 구조로 가짜 데이터를 만들어 두는 패턴이다.
 
-3. Supabase 연동 후에는 컴포넌트 코드도 함께 바꿔야 한다. → **X**  
+2. Supabase 연동 후에는 컴포넌트 코드도 함께 바꿔야 한다. → **X**  
    ↳ 컴포넌트는 그대로 두고 `page.tsx`의 데이터 소스 두 줄만 바꾸면 된다.

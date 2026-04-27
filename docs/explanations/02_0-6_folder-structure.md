@@ -7,9 +7,7 @@
 
 ## 이 문서를 읽고 나면 풀 수 있어요
 
-1. `"use client"`가 없는 컴포넌트는 기본적으로 서버에서 실행된다.
-2. Supabase 클라이언트는 브라우저용, 서버용 구분 없이 하나만 쓰면 된다.
-3. `useState`나 이벤트 핸들러가 필요한 컴포넌트는 `"use client"`를 붙여야 한다.
+1. Supabase 클라이언트는 브라우저용, 서버용 구분 없이 하나만 쓰면 된다.
 
 ---
 
@@ -66,26 +64,7 @@ FloatingCTA.tsx (하단 고정 버튼)
 
 ---
 
-## 핵심 개념 2: `"use client"` 지시어
-
-파일 맨 위에 `"use client"`가 있는 것과 없는 것이 있다.
-
-| | Server Component (기본값) | Client Component (`"use client"`) |
-|---|---|---|
-| **실행 위치** | 서버에서 HTML 생성 | 브라우저에서 실행 |
-| **데이터** | DB 직접 조회 가능 | `useState`, 이벤트 핸들러 사용 가능 |
-| **예시** | Hero, TrustBar, Footer | LinkEditor, ProfileForm |
-
-**규칙**: 클릭/입력 같은 사용자 인터랙션이 필요하면 `"use client"`, 데이터를 보여주기만 하면 Server Component로 둔다.
-
-관리자 컴포넌트(`LinkEditor`, `ProfileForm` 등)는 폼 입력과 버튼 클릭이 있으므로 `"use client"`가 붙는다.
-
-- ❌ 과거: `"버튼 컴포넌트 만들어줘"`
-- ✅ 현재: `"components/admin/SaveButton.tsx 만들어줘. 클릭 이벤트 있으니까 "use client" 붙여줘"`
-
----
-
-## 핵심 개념 3: Supabase 클라이언트가 두 개인 이유
+## 핵심 개념 2: Supabase 클라이언트가 두 개인 이유
 
 ```
 lib/supabase/client.ts  ← 브라우저에서 실행
@@ -105,7 +84,7 @@ Supabase는 이 두 환경에 맞는 별도 클라이언트를 제공한다.
 
 ---
 
-## 핵심 개념 4: TypeScript 타입 (`lib/types.ts`)
+## 핵심 개념 3: TypeScript 타입 (`lib/types.ts`)
 
 | 필드 | 타입 | 설명 |
 |------|------|------|
@@ -144,11 +123,5 @@ PRD 9절의 DB 스키마를 TypeScript 타입으로 그대로 옮긴 것이다.
 
 ## 퀴즈 정답
 
-1. `"use client"`가 없는 컴포넌트는 기본적으로 서버에서 실행된다. → **O**  
-   ↳ App Router에서는 모든 컴포넌트가 기본적으로 Server Component다.
-
-2. Supabase 클라이언트는 브라우저용, 서버용 구분 없이 하나만 쓰면 된다. → **X**  
+1. Supabase 클라이언트는 브라우저용 서버용 구분 없이 하나만 쓰면 된다. → **X**  
    ↳ 실행 환경이 다르므로 `client.ts`(브라우저)와 `server.ts`(서버) 두 개를 구분해 쓴다.
-
-3. `useState`나 이벤트 핸들러가 필요한 컴포넌트는 `"use client"`를 붙여야 한다. → **O**  
-   ↳ 클릭, 입력 같은 사용자 인터랙션은 브라우저에서만 동작한다.
