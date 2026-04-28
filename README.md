@@ -61,6 +61,152 @@ npm run dev
 
 ---
 
+## Supabase 설정
+
+실습 시작 전 Supabase SQL Editor에서 아래 SQL을 순서대로 실행하세요.
+
+### 1단계 — 테이블 생성 (task/19 전)
+
+```sql
+-- profiles 테이블
+create table profiles (
+  id uuid references auth.users(id) on delete cascade primary key,
+  name text not null,
+  title text not null default '',
+  bio text not null default '',
+  experience text not null default '',
+  image_url text,
+  primary_cta_link_id uuid,
+  seo_title text,
+  seo_description text,
+  og_image_url text
+);
+
+-- links 테이블
+create table links (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade not null,
+  title text not null,
+  url text not null,
+  type text not null check (type in ('link', 'card', 'overflow_card', 'youtube')),
+  image_url text,
+  "order" integer not null default 0,
+  is_visible boolean not null default true,
+  click_count integer not null default 0,
+  created_at timestamptz not null default now()
+);
+
+-- client_logos 테이블
+create table client_logos (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade not null,
+  name text not null,
+  image_url text not null default '',
+  "order" integer not null default 0
+);
+
+-- RLS 활성화
+alter table profiles enable row level security;
+alter table links enable row level security;
+alter table client_logos enable row level security;
+
+-- RLS 정책
+create policy "public read profiles" on profiles for select using (true);
+create policy "owner update profiles" on profiles for update using (auth.uid() = id);
+create policy "owner insert profiles" on profiles for insert with check (auth.uid() = id);
+
+create policy "public read links" on links for select using (true);
+create policy "owner all links" on links for all using (auth.uid() = user_id);
+
+create policy "public read logos" on client_logos for select using (true);
+create policy "owner all logos" on client_logos for all using (auth.uid() = user_id);
+```
+
+### 2단계 — 초기 데이터 삽입 (task/19 전)
+
+> `your-user-id-here`를 본인 UUID로 교체 후 실행하세요.
+> UUID는 Supabase 대시보드 → Authentication → Users → 본인 계정 클릭 후 확인.
+
+```sql
+do $$
+declare
+  uid uuid := 'your-user-id-here';
+begin
+
+insert into profiles (id, name, title, bio, experience, image_url, primary_cta_link_id, seo_title, seo_description, og_image_url)
+values (
+  uid,
+  '김강사',
+  'AI전공 AI교육 강사',
+  'AI전공 AI교육 강사',
+  '강의경력 8년 | 삼성 출강 경험',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
+  null,
+  'AI전공 AI교육 강사 | 김강사',
+  '강의경력 8년, 삼성 출강 경험. 기업·공공기관 AI 교육 전문 강사 김강사에게 문의하세요.',
+  null
+);
+
+insert into links (user_id, title, url, type, image_url, "order", is_visible, click_count, created_at) values
+  (uid, '카카오톡 문의',                'https://open.kakao.com/o/example', 'link',          null, 1, true, 0, now()),
+  (uid, '이메일 문의',                 'mailto:instructor@example.com',    'link',          null, 2, true, 0, now()),
+  (uid, '강의 소개 페이지',             'https://notion.so/example',        'link',          null, 3, true, 0, now()),
+  (uid, 'AI 교육 블로그',               'https://blog.example.com',         'link',          null, 4, true, 0, now()),
+  (uid, 'GPT 실전 활용 기업 맞춤 강의', 'https://forms.gle/example',        'overflow_card', null, 5, true, 0, now());
+
+insert into client_logos (user_id, name, image_url, "order") values
+  (uid, '삼성전자',   '', 1),
+  (uid, 'LG전자',     '', 2),
+  (uid, '현대자동차', '', 3),
+  (uid, 'SK하이닉스', '', 4),
+  (uid, 'KT',         '', 5),
+  (uid, '네이버',     '', 6),
+  (uid, '카카오',     '', 7),
+  (uid, '롯데그룹',   '', 8);
+
+end $$;
+```
+
+### 3단계 — 클릭 이벤트 테이블 + RPC 함수 (task/20 전)
+
+```sql
+-- link_click_events 테이블
+create table link_click_events (
+  id uuid primary key default gen_random_uuid(),
+  link_id uuid references links(id) on delete cascade not null,
+  user_id uuid,
+  clicked_at timestamptz not null default now()
+);
+
+alter table link_click_events enable row level security;
+
+-- increment_click_count RPC 함수
+create or replace function increment_click_count(link_id uuid)
+returns void
+language plpgsql
+security definer
+as $$
+begin
+  update links set click_count = click_count + 1 where id = link_id;
+  insert into link_click_events (link_id, user_id)
+  select link_id, l.user_id from links l where l.id = link_id;
+end;
+$$;
+```
+
+### 4단계 — Storage 버킷 생성 (task/22 전)
+
+```sql
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values
+  ('profiles',  'profiles',  true, 5242880, array['image/jpeg','image/png','image/webp','image/gif']),
+  ('logos',     'logos',     true, 2097152, array['image/jpeg','image/png','image/webp','image/svg+xml']),
+  ('og-images', 'og-images', true, 5242880, array['image/jpeg','image/png','image/webp'])
+on conflict (id) do nothing;
+```
+
+---
+
 ## 브랜치 구조
 
 각 브랜치는 독립적인 기능 단위로 구성되어 있습니다.
