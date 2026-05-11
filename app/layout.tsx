@@ -20,8 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={inter.variable}>
-      <body>{children}</body>
-      <GoogleAnalytics gaId="G-RRWV2NJPY2" />
+      <body>
+        {children}
+        <GoogleAnalytics gaId="G-RRWV2NJPY2" />
+      </body>
     </html>
   );
 }
