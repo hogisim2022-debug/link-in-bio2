@@ -1,6 +1,7 @@
 "use client";
 
 import { MessageCircle, Mail, FileText, PenLine, Link2, ChevronRight } from "lucide-react";
+import { sendGAEvent } from "@next/third-parties/google";
 import { Link } from "@/lib/types";
 import { createClient } from "@/lib/supabase/client";
 
@@ -8,12 +9,18 @@ interface LinkItemProps {
   link: Link;
 }
 
-function trackClick(linkId: string) {
+function trackClick(link: Link) {
   const supabase = createClient();
-  supabase.rpc("increment_click_count", { link_id: linkId })
+  supabase.rpc("increment_click_count", { link_id: link.id })
     .then(({ error }) => {
       if (error) console.error("[click tracking]", error);
     });
+
+  sendGAEvent("event", "link_click", {
+    link_title: link.title,
+    link_url: link.url,
+    link_type: link.type,
+  });
 }
 
 type IconEntry = { icon: React.ReactNode; cls: string };
@@ -39,7 +46,7 @@ export function LinkItem({ link }: LinkItemProps) {
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackClick(link.id)}
+      onClick={() => trackClick(link)}
     >
       <div className={`link-item__icon ${cls}`}>{icon}</div>
       <div className="link-item__text">
@@ -59,7 +66,7 @@ export function OverflowCardItem({ link }: LinkItemProps) {
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => trackClick(link.id)}
+        onClick={() => trackClick(link)}
       >
         <div className="overflow-card__img">🤖</div>
         <div className="overflow-card__body">
